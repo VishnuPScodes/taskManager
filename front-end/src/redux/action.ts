@@ -13,6 +13,6 @@ export const addToken=(payload:any)=>{
 }
 export const logOut = (payload: any) => {
   return {
-    type: myActions.ADD_TOKEN,
+    type: myActions.LOG_OUT,
   };
 };

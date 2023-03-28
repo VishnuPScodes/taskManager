@@ -1,14 +1,28 @@
-
-
-.cont{ 
-    height: 80px;
-    width: 100%;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    position: sticky;
-    left: 0px;
-    right: 0%;
-    top: 0px;
-    opacity: 1;
-
+.cont {
+  height: 80px;
+  width: 100%;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  position: sticky;
+  left: 0px;
+  right: 0%;
+  top: 0px;
+  opacity: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cont > div {
+  font-size: larger;
+  font-weight: 700;
+  font-family: "Poppins";
+  transition: 0.5s;
+  text-decoration: underline;
+}
+.cont > div:hover {
+  cursor: pointer;
+  color: red;
+  transition: 0.5s;
+  text-decoration: none;
 }

@@ -11,42 +11,45 @@ import {
   Heading,
   Text,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
-import styles from './login.module.css';
+import styles from "./register.module.css";
 import axios from "axios";
-import {useState} from 'react';
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToken } from "../../redux/action";
 import { Spinner } from "@chakra-ui/react";
-export const Login=()=>{
-  const [password,setPassword]=useState('');
-  const [email,setEmail]=useState('');
-  const navigate=useNavigate();
-  const dispatch=useDispatch();
-  const [loader,setLoader]=useState(false);
-  const handleSubmit=()=>{
+export const Register = () => {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [loader, setLoader] = useState(false);
+  const handleSubmit = () => {
     setLoader(true);
-    let data={
+    let data = {
       email,
-      password
-    }
-    axios.post('http://localhost:3000/log',data).then((res)=>{
-      setLoader(false);
-      if(res.data?.token){
+      password,
+    };
+    axios
+      .post("http://localhost:3000/reg", data)
+      .then((res) => {
+      setLoader(false); 
+        if (res.data?.token) {
+          
           dispatch(addToken(res.data.token));
           navigate("/");
-      }
-      else{
-        alert('login failed')
-      }
-    }).catch((er)=>{
-      setLoader(false);
-      console.log(er.response.data.message);
-      alert(er.response.data.message)
-    })
-  }
+          console.log(res.data.token);
+        } else {
+          alert("login failed");
+        }
+      })
+      .catch((er) => {
+        setLoader(false);
+        console.log("er", er.response.data.message);
+        alert(er.response.data.message);
+      });
+  };
   return (
     <Flex
       minH={"100vh"}
@@ -56,7 +59,7 @@ export const Login=()=>{
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Heading fontSize={"4xl"}>Please sign up yourself</Heading>
         </Stack>
         <Box
           rounded={"lg"}
@@ -93,23 +96,23 @@ export const Login=()=>{
                   bg: "blue.500",
                 }}
               >
-                {loader == true ? <Spinner /> : "Sign in"}
+                {loader == true ? <Spinner /> : "Sign Up"}
               </Button>
             </Stack>
           </Stack>
           <div className={styles.signup}>
-            Not registered?{" "}
+            Already registered?
             <Link
               onClick={() => {
-                navigate("/register");
+                navigate("/login");
               }}
               color={"black.400"}
             >
-              Sign up
+              Sign in
             </Link>
           </div>
         </Box>
       </Stack>
     </Flex>
   );
-}
+};

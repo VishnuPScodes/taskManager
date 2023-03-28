@@ -1,13 +1,84 @@
 .card{
   border: 1px solid rgb(182, 181, 181);
   width: 300px;
-  height: 300px;
+  min-height: 200px;
   margin-right: 50px;
   border-radius: 10px;
   margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 .card:hover{
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.name_head{
+    font-family: 'Poppins';
+    font-weight: 700;
+    text-align: center;
+    font-size: larger;
+    line-height: 30px;
+}
+.description{
+    font-size: medium;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-style: italic;
+    padding-top: 15px;
+}
+.deadline{
+    font-family: 'Poppins';
+    text-align: left;
+    font-weight: 500;
+    padding-top: 20px;
+}
+.deadline_cont{
+    padding-top: 15px;
+}
+.date{
+    padding-left: 10px;
+    font-weight: 400;
+    font-family: 'Poppins';
+    font-size: medium;
+}
+.delete{
+    background-color: red;
+    width: fit-content;
+    padding-inline: 15px;
+    color: white;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: medium;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.delete:hover{
+    cursor: pointer;
+    background-color: rgb(255, 3, 3);
+    box-shadow: rgb(255, 3, 3) 0px 2px 4px 0px;
+}
+
+.edit{
+    background-color: blue;
+    width: fit-content;
+    padding-inline: 15px;
+    color: white;
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: medium;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.edit:hover{
+    cursor: pointer;
+    background-color: rgb(6, 6, 252);
+    box-shadow: rgb(6, 6, 252) 0px 2px 4px 0px;
+}
+
+.btn_cont{
+    display: flex;
+    justify-content: space-between;
+   margin-top: auto;
 }
 
 .card_container{
