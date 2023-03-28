@@ -2,14 +2,14 @@ import express from "express";
 import { TasksList } from "../models/tasks.model";
 import { authenticate } from "../middlewares/authentication";
 import { CustomRequest } from "../middlewares/authentication";
+import cors from 'cors'
 const router = express.Router();
 
 //get
 router.get("/", authenticate, async (req: CustomRequest, res) => {
   let userId = req.user?.userData._id;
   try {
-    const data = await TasksList.findOne({ _id: userId }).lean().exec();
-    console.log("my user", req.user?.userData._id);
+    const data = await TasksList.findOne({ userId: userId }).lean().exec();
     res.status(200).send(data);
   } catch (error) {
     console.log(error);
@@ -41,6 +41,54 @@ router.post("/", authenticate, async (req: CustomRequest, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).send(error);
+  }
+});
+
+
+
+// Update a task by ID
+router.post("/:id",cors(), async (req, res) => {
+  console.log('here');
+  try {
+    const taskId = req.params.id;
+    const updatedFields = req.body;
+    const result = await TasksList.findOneAndUpdate(
+      { "tasks._id": taskId },
+      { $set: { "tasks.$": updatedFields } },
+      { returnOriginal: false }
+    );
+    if (!result) {
+      return res.status(400).json({ message: "Task not found" });
+    }
+    else{
+      res.status(200).send(result);
+    }
+   
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Deleting a task by ID
+router.delete("/:id",cors(), async (req, res) => {
+  console.log('here');
+  try {
+    const taskId = req.params.id;
+    const updatedFields = req.body;
+    const result = await TasksList.findOneAndDelete(
+      { "tasks._id": taskId },
+    );
+    if (!result) {
+      return res.status(400).json({ message: "Task not found" });
+    }
+    else{
+      res.status(200).send(result);
+    }
+   
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
