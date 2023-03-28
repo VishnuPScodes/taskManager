@@ -2,6 +2,7 @@ import express from "express";
 import { User } from "../models/registration.model";
 import { body, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { TasksList } from "../models/tasks.model";
 import dotenv from "dotenv";
 dotenv.config();
 const router = express.Router();
@@ -45,6 +46,7 @@ router.post("/", body("email").isEmail(), async (req, res) => {
           .status(400)
           .send({ status: "failed", message: "user already exists" });
       } else {
+        let userTask
         userData = await User.create(req.body);
         let token=newToken(userData);
         res.status(200).send({token})
