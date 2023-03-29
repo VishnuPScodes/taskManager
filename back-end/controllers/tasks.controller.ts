@@ -71,21 +71,18 @@ router.post("/:id",cors(), async (req, res) => {
 });
 
 // Deleting a task by ID
-router.delete("/:id",cors(), async (req, res) => {
-  console.log('here');
+router.delete("/:id", cors(), async (req, res) => {
   try {
     const taskId = req.params.id;
-    const updatedFields = req.body;
-    const result = await TasksList.findOneAndDelete(
+    const result = await TasksList.findOneAndUpdate(
       { "tasks._id": taskId },
+      { $pull: { tasks: { _id: taskId } } },
+      { new: true }
     );
     if (!result) {
       return res.status(400).json({ message: "Task not found" });
     }
-    else{
-      res.status(200).send(result);
-    }
-   
+    res.status(200).send(result);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "Internal server error" });
