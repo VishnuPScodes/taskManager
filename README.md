@@ -1,6 +1,6 @@
 # Task Manager
 
-A full-stack web application for managing tasks built with Reactjs, Typescript, NodeJs, MongoDB, ExpressJs, Chakra-ui, Express-validator, and styled-components.
+A full-stack web application for managing tasks built with Reactjs, Typescript, NodeJs, MongoDB, ExpressJs, Chakra-ui, Redux, Express-validator, and styled-components.
 
 ## Features
 
@@ -56,3 +56,4 @@ npm run dev
 - Chakra UI
 - Express-validator
 - styled-components
+- Redux
