@@ -23,7 +23,7 @@ export const TasksList = () => {
   const token = useSelector((state) => state?.auth?.token);
   const [data, setData] = useState([]);
   const [update, setUpdate] = useState(false);
-  const toast=useToast();
+  const toast = useToast();
   useEffect(() => {
     axios
       .get("http://localhost:3000/tasks", {
@@ -68,6 +68,15 @@ export const TasksList = () => {
 
   const handleClose = () => {
     setIsOpen(false);
+  };
+
+  //sort functionality
+  const handleSort = () => {
+    let newdata=[...data];
+    console.log('before',newdata)
+    newdata=newdata.sort((a, b) => new Date(a.date) - new Date(b.date));
+    setData(newdata);
+    console.log("after", newdata);
   };
 
   //modal function
@@ -162,39 +171,50 @@ export const TasksList = () => {
 
   return (
     <div>
-      <div className={styles.card_container}>
-        {data?.map((e) => {
-          return (
-            <div key={e._id}>
-              <Div className={styles.card}>
-                <div className={styles.name_head}>{e.task_name}</div>
-                <div className={styles.description}>{e.description}</div>
-                <div className={styles.deadline_cont}>
-                  <span className={styles.deadline}>Deadline:</span>
-                  <span className={styles.date}>{e.date}</span>
-                </div>
-                <div className={styles.button_wrapp}>
-                  <div className={styles.btn_cont}>
-                    <div
-                      onClick={() => {
-                        handleOpen(e);
-                      }}
-                      className={styles.edit}
-                    >
-                      Edit
-                    </div>
-                    <div onClick={()=>{
-                      handleDelete(e)
-                    }} className={styles.delete}>
-                      Delete
+      <div onClick={handleSort} className={styles.sort}>
+        Sort Tasks by Date
+      </div>
+      {data?.length == 0 ? (
+        <div>You do not have any tasks to do</div>
+      ) : (
+        <div className={styles.card_container}>
+          {data?.map((e) => {
+            return (
+              <div key={e?._id}>
+                <Div className={styles.card}>
+                  <div className={styles.name_head}>{e.task_name}</div>
+                  <div className={styles.description}>{e.description}</div>
+                  <div className={styles.deadline_cont}>
+                    <span className={styles.deadline}>Deadline:</span>
+                    <span className={styles.date}>{e.date}</span>
+                  </div>
+                  <div className={styles.button_wrapp}>
+                    <div className={styles.btn_cont}>
+                      <div
+                        onClick={() => {
+                          handleOpen(e);
+                        }}
+                        className={styles.edit}
+                      >
+                        Edit
+                      </div>
+                      <div
+                        onClick={() => {
+                          handleDelete(e);
+                        }}
+                        className={styles.delete}
+                      >
+                        Delete
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Div>
-            </div>
-          );
-        })}
-      </div>
+                </Div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       <InitialFocus />
     </div>
   );

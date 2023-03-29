@@ -26,6 +26,20 @@
     font-style: italic;
     padding-top: 15px;
 }
+.sort{
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 15px;
+    margin-left: 2%;
+    width: fit-content;
+    display: flex;
+    align-self: flex-start;
+  
+}
+.sort:hover{
+    cursor: pointer;
+   
+}
 .deadline{
     font-family: 'Poppins';
     text-align: left;
